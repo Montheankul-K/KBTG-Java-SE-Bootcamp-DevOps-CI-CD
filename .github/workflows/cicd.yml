@@ -1,10 +1,7 @@
 name: CI and CD
 
 on:
-<<<<<<< HEAD
-=======
   # trigger pipeline when push or pull request to main branch
->>>>>>> e1c62b3 (update some config)
   push:
     branches: [ main ]
   pull_request:
@@ -24,10 +21,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
-<<<<<<< HEAD
-=======
           # fetch depth 0 not include history improve code checkout speed
->>>>>>> e1c62b3 (update some config)
       - name: Set up JDK 17
         uses: actions/setup-java@v1
         with:
@@ -63,37 +57,23 @@ jobs:
           java-version: 17
 
       - uses: actions/checkout@v4
-<<<<<<< HEAD
-
-=======
         # execute unit test
->>>>>>> e1c62b3 (update some config)
       - name: Unit test outside Docker-compose
         run: ./gradlew test
-
       - name: Setup SHA
         run: echo "GITHUB_SHA=${GITHUB_SHA}" >> $GITHUB_ENV
-<<<<<<< HEAD
-
       - name: Integration test inside Docker-compose cleanup
         run: docker-compose -f docker-compose.test.yml down
-
-=======
         # execute integration down for clean up integration data
       - name: Integration test inside Docker-compose cleanup
         run: docker-compose -f docker-compose.test.yml down
         # execute integration test
->>>>>>> e1c62b3 (update some config)
       - name: Integration test inside Docker-compose
         run: docker-compose -f docker-compose.test.yml up --build --abort-on-container-exit --exit-code-from it_test
 
       - name: Build the Docker image
         run: docker build . --file Dockerfile --tag ghcr.io/Montheankul-K/KBTG-Java-SE-Bootcamp-DevOps-CI-CD:${{ env.GITHUB_SHA }}
-<<<<<<< HEAD
-
-=======
         # login to github container registry and push container to registry
->>>>>>> e1c62b3 (update some config)
       - name: Login ghcr.io
         uses: docker/login-action@v1.8.0
         with:
